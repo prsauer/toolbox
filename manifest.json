@@ -1,15 +1,12 @@
 {
   "windows": {
-    "copy": [
-      ["git/gup.ps1", "D:\\bin\\gup.ps1"]
-    ],
+    "requirements": ["where git", "where gh"],
+    "copy": [["git/gup.ps1", "D:\\bin\\gup.ps1"]],
     "alias": []
   },
   "macos": {
-    "copy": [
-      ["git/gup.sh", "~/bin/gup"]
-    ],
+    "requirements": ["command -v git", "command -v jq", "command -v gh"],
+    "copy": [["git/gup.sh", "~/bin/gup"]],
     "alias": []
   }
 }
-
