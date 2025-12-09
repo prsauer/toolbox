@@ -7,7 +7,7 @@
   },
   "macos": {
     "copy": [
-      ["git/gup.ps1", "~/bin/gup.ps1"]
+      ["git/gup.sh", "~/bin/gup"]
     ],
     "alias": []
   }
