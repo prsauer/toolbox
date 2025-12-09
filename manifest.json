@@ -1,0 +1,15 @@
+{
+  "windows": {
+    "copy": [
+      ["git/gup.ps1", "D:\\bin\\gup.ps1"]
+    ],
+    "alias": []
+  },
+  "macos": {
+    "copy": [
+      ["git/gup.ps1", "~/bin/gup.ps1"]
+    ],
+    "alias": []
+  }
+}
+
