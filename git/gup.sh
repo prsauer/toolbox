@@ -11,7 +11,7 @@ print_claude_result() {
     local label="$1"
     local content="$2"
     echo -e "${CYAN}<<CLAUDE:${label}>>${RESET}"
-    echo -e "${WHITE}${content}${RESET}"
+    echo "$content" | sed "s/^/  /" | while IFS= read -r line; do echo -e "${WHITE}${line}${RESET}"; done
     echo -e "${CYAN}<</CLAUDE>>${RESET}"
 }
 

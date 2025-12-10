@@ -6,7 +6,7 @@ function Write-ClaudeResult {
         [string]$Content
     )
     Write-Host "<<CLAUDE:$Label>>" -ForegroundColor Cyan
-    Write-Host $Content -ForegroundColor White
+    $Content -split "`n" | ForEach-Object { Write-Host "  $_" -ForegroundColor White }
     Write-Host "<</CLAUDE>>" -ForegroundColor Cyan
 }
 
