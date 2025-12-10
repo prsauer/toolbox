@@ -2,6 +2,19 @@
 
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 
+# Colors
+CYAN='\033[36m'
+WHITE='\033[37m'
+RESET='\033[0m'
+
+print_claude_result() {
+    local label="$1"
+    local content="$2"
+    echo -e "${CYAN}<<CLAUDE:${label}>>${RESET}"
+    echo -e "${WHITE}${content}${RESET}"
+    echo -e "${CYAN}<</CLAUDE>>${RESET}"
+}
+
 test_unstaged_changes() {
     ! git diff --quiet 2>/dev/null
 }
@@ -30,7 +43,7 @@ push_to_current_branch() {
         exit 1
     fi
 
-    echo "Committing with message: $commit_message"
+    print_claude_result "commit_message" "$commit_message"
     git commit -m "$commit_message"
 
     echo "Pushing to origin..."
@@ -49,7 +62,7 @@ push_to_new_branch() {
         exit 1
     fi
 
-    echo "Creating and switching to branch: $branch_name"
+    print_claude_result "branch_name" "$branch_name"
     git checkout -b "$branch_name"
 
     git add -A
@@ -63,7 +76,7 @@ push_to_new_branch() {
         exit 1
     fi
 
-    echo "Committing with message: $commit_message"
+    print_claude_result "commit_message" "$commit_message"
     git commit -m "$commit_message"
 
     echo "Pushing to origin..."
@@ -76,7 +89,7 @@ push_to_new_branch() {
         pr_body="$commit_message"
     fi
 
-    echo "Creating pull request..."
+    print_claude_result "pr_description" "$pr_body"
     gh pr create --title "$commit_message" --body "$pr_body" --base main
 }
 

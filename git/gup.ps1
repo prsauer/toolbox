@@ -1,5 +1,15 @@
 $currentBranch = git rev-parse --abbrev-ref HEAD
 
+function Write-ClaudeResult {
+    param(
+        [string]$Label,
+        [string]$Content
+    )
+    Write-Host "<<CLAUDE:$Label>>" -ForegroundColor Cyan
+    Write-Host $Content -ForegroundColor White
+    Write-Host "<</CLAUDE>>" -ForegroundColor Cyan
+}
+
 function Test-UnstagedChanges {
     git diff --quiet 2>$null
     return $LASTEXITCODE -ne 0
@@ -31,7 +41,7 @@ function Push-ToCurrentBranch {
         exit 1
     }
 
-    Write-Host "Committing with message: $commitMessage"
+    Write-ClaudeResult -Label "commit_message" -Content $commitMessage
     git commit -m $commitMessage
 
     Write-Host "Pushing to origin..."
@@ -50,7 +60,7 @@ function Push-ToNewBranch {
         exit 1
     }
 
-    Write-Host "Creating and switching to branch: $branchName"
+    Write-ClaudeResult -Label "branch_name" -Content $branchName
     git checkout -b $branchName
 
     git add -A
@@ -64,7 +74,7 @@ function Push-ToNewBranch {
         exit 1
     }
 
-    Write-Host "Committing with message: $commitMessage"
+    Write-ClaudeResult -Label "commit_message" -Content $commitMessage
     git commit -m $commitMessage
 
     Write-Host "Pushing to origin..."
@@ -77,7 +87,7 @@ function Push-ToNewBranch {
         $prBody = $commitMessage
     }
 
-    Write-Host "Creating pull request..."
+    Write-ClaudeResult -Label "pr_description" -Content $prBody
     gh pr create --title $commitMessage --body $prBody --base main
 }
 
